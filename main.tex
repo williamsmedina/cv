@@ -1,0 +1,364 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=2 cm, % seperation between body and page edge from the top
+    bottom=2 cm, % seperation between body and page edge from the bottom
+    left=2 cm, % seperation between body and page edge from the left
+    right=2 cm, % seperation between body and page edge from the right
+    footskip=1.0 cm, % seperation between body and footer
+    % showframe % for debugging 
+]{geometry} % for adjusting page geometry
+\usepackage{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 0, 0} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={CV de Williams Medina},
+    pdfauthor={Williams Medina},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+\usepackage{charter}
+
+% Some settings:
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0.15cm} % set column seperation
+\pagenumbering{gobble} % no page numbering
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{
+    % left space:
+    -1pt
+}{
+    % top space:
+    0.3 cm
+}{
+    % bottom space:
+    0.2 cm
+} % section title spacing
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0 cm + 0.00001 cm
+    }{
+        0 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{threecolentry}[3][]{
+    \onecolentry
+    \def\thirdColumn{#3}
+    \setcolumnwidth{, \fill, 4.5 cm}
+    \begin{paracol}{3}
+    {\raggedright #2} \switchcolumn
+}{
+    \switchcolumn \raggedleft \thirdColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for three column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+\newcommand{\placelastupdatedtext}{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(
+        \LenToUnit{\paperwidth-2 cm-0 cm+0.05cm},
+        \LenToUnit{\paperheight-1.0 cm}
+    ){\vtop{{\null}\makebox[0pt][c]{
+        \small\color{gray}\textit{Last updated in September 2024}\hspace{\widthof{Last updated in September 2024}}
+    }}}%
+  }%
+}%
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+
+
+\begin{document}
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{$|$}
+
+    \begin{header}
+        \fontsize{25 pt}{25 pt}\selectfont Williams Medina
+
+        \vspace{5 pt}
+
+        \normalsize
+        \mbox{Córdoba, Argentina}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\hrefWithoutArrow{mailto:wmedina685@gmail.com}{wmedina685@gmail.com}}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\hrefWithoutArrow{tel:+90-541-999-99-99}{(+54) 351 552 7085}}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+    
+        \mbox{\hrefWithoutArrow{https://linkedin.com/in/wamedina}{linkedin.com/in/wamedina}}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\hrefWithoutArrow{https://github.com/williamsmedina}{github.com/williamsmedina}}%
+    \end{header}
+
+    \vspace{5 pt - 0.3 cm}
+
+
+    \section{Resumen}
+
+
+
+        
+        \begin{onecolentry}
+            Me dedico a la ciberseguridad, con más de 4 años de experiencia en IT. He trabajado con tecnologías como Microsoft Azure, Windows Server, Fortigate, Kaspersky Security Center y Palo Alto Cortex XDR, participando en proyectos de soporte y consultoría en entornos on-premises y en la nube. Poseo sólidos conocimientos en protocolos de red (DNS, SMB, SMTP, HTTP, TCP/IP) y actualmente me encuentro abocado a la securización de puestos de trabajo e infraestructuras Cloud y On-Premises, así como a su gobernanza. Me destaco por mi capacidad para resolver desafíos complejos de manera proactiva y colaborativa.
+        \end{onecolentry}
+
+        \vspace{0.2 cm}   
+
+    \section{Educación}
+
+\begin{twocolentry}{
+    2021 – 2022
+}
+    \textbf{Colegio Universitario IES}, Analista de Sistemas
+\end{twocolentry}
+
+\vspace{0.10 cm}
+\begin{onecolentry}
+    \begin{highlights}
+        % (Agrega detalles adicionales, logros o cursos relevantes aquí, si lo consideras necesario)
+    \end{highlights}
+\end{onecolentry}
+
+
+
+
+    
+   \section{Experiencia laboral}
+\begin{twocolentry}{
+    Dic. 2024 – Presente
+}
+    \textbf{Protection \& Response Specialist}, Vulps - Grupo CEDI
+\end{twocolentry}
+
+\vspace{0.10 cm}
+\begin{onecolentry}
+    \begin{highlights}
+         \item Administro la consola antivirus de Palo Alto Cortex XDR, gestionando más de 13,000 endpoints (servidores Windows y Linux, estaciones de trabajo y dispositivos móviles) distribuidos en más de 100 sitios para proporcionar la protección de todo el entorno.
+        \item Realizar análisis de malware en incidentes complejos y llevar a cabo acciones de remediación, minimizando el impacto de amenazas avanzadas.
+        \item Participo en pruebas de concepto (PoC) y en el despliegue de soluciones de ciberseguridad, apoyando la integración de nuevas tecnologías en entornos críticos.
+        \item Asesoro en la implementación de medidas de seguridad en Azure y Microsoft Entra ID, aplicando buenas prácticas de acceso condicional, principio de menor privilegio, y gobernanza de la nube.
+        \item Doy seguimiento a proyectos de ciberseguridad, asegurando la correcta integración y funcionamiento de diversas soluciones tecnológicas.
+        \item Brindo apoyo técnico especializado en la resolución de problemas complejos donde interactuaban múltiples sistemas, optimizando la respuesta ante incidentes.
+    \end{highlights}
+\end{onecolentry}
+
+\vspace{0.2 cm}   
+
+\begin{twocolentry}{
+    Ene. 2024 – Nov. 2024
+}
+    \textbf{Support Engineer}, CEDI Tech Consulting
+\end{twocolentry}
+
+\vspace{0.10 cm}
+\begin{onecolentry}
+    \begin{highlights}
+        \item Brindé soporte y consultoría a áreas de sistemas, satisfaciendo de manera efectiva las necesidades de clientes de todos los tamaños.
+        \item Asesoré en el manejo de tecnologías de vanguardia—Microsoft Azure, Microsoft 365, Windows Server (AD DS, AD CS, File Server Services, Exchange, IIS, etc.), Kaspersky Security Center, VMware ESXi y vSphere, Fortigate y Dell EMC SmartFabric OS—acompañando a los equipos de TI en la identificación y resolución de incidencias para optimizar infraestructuras complejas.
+    \end{highlights}
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{twocolentry}{
+    Dic. 2021 – Dic. 2023
+}
+    \textbf{Soporte IT}, Radio Mitre S.A - Grupo Clarín
+\end{twocolentry}
+
+\vspace{0.10 cm}
+\begin{onecolentry}
+    \begin{highlights}
+        \item Automatización, gestión, documentación y auditoría de procesos críticos en Active Directory y M365, abarcando altas, bajas, modificaciones de usuarios, grupos de seguridad, MFA y OUs, lo que permitió optimizar la eficiencia operativa y fortalecer la gestión de identidades.
+        \item Implementé herramientas para la integración de plataformas en productos ManageEngine con Microsoft Entra ID/Active Directory y OAuth, potenciando la interoperabilidad entre sistemas.
+        \item Administré la seguridad de más de 400 estaciones de trabajo a través de Kaspersky Security Center, diseñando e implementando políticas de seguridad personalizadas que respondieran a las necesidades del negocio y automatizando las actualizaciones de sistemas y software de terceros para asegurar una protección integral y continuidad operativa
+        \item Operé firewalls Fortigate para más de 2000 hosts distribuidos en tres sitios, gestionando address policies, NAT, IDS/IPS, SD-WAN Rules y VPN, e integré Lumu para una respuesta eficaz ante incidentes.
+        \item Controlé y mantuve la operatividad de Exchange Server, DHCP, DNS, IIS y recursos compartidos (net shares y print servers) utilizando RDP, VNC, MMC y PowerShell, asegurando la continuidad de los servicios críticos.
+        \item Monitoreé la infraestructura IT y radial con PRTG, configurando dashboards y webhooks (integrados con MS Teams) para identificar, escalar y prevenir fallas de forma proactiva.
+    \end{highlights}
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{twocolentry}{
+    Ago. 2020 – Nov. 2021
+}
+    \textbf{Técnico de Soporte de TI}, Telenex
+\end{twocolentry}
+
+\vspace{0.10 cm}
+\begin{onecolentry}
+    \begin{highlights}
+        \item Proporcioné soporte técnico de nivel 1, tanto presencial como remoto, a más de 200 usuarios finales en entornos Windows, resolviendo incidencias de forma ágil y eficaz.
+        \item Administré y optimicé Active Directory, servidores de impresión, DHCP Mikrotik y Google Workspace, asegurando la continuidad y el rendimiento de la infraestructura IT.
+        \item Implementé infraestructura física de IT, abarcando el cableado de red y el montaje en rack de equipos, lo que contribuyó a mejorar la conectividad y estabilidad del entorno de los clientes.
+    \end{highlights}
+\end{onecolentry}
+
+
+    
+    \section{Certificaciones y credenciales}
+
+        
+        \begin{twocolentry}{
+            \href{https://www.credly.com/badges/7b0b48ff-3c24-4583-adb0-31f8596de99b/linked_in_profile}{Vínculo a credencial}
+        }
+            \textbf{Copilot for Microsoft 365 Technical Champion}\end{twocolentry}
+
+        \vspace{0.10 cm}
+        \vspace{0.2 cm}
+
+        \begin{twocolentry}{
+            \href{https://certification.kaspersky.com/api/PageOfCertificate/ca679a69-c08d-4da2-af4d-8e8486097433}{Vínculo a credencial}
+        }
+            \textbf{Certified Professional: Kaspersky Endpoint Security Cloud (040.16)}\end{twocolentry}
+
+        \vspace{0.10 cm}
+        \vspace{0.2 cm}
+
+        \begin{twocolentry}{
+           \href{https://certification.kaspersky.com/api/PageOfCertificate/ceec7cef-af6d-47ae-b0b6-7d8cb8dea1e7}{Vínculo a credencial}
+        }
+            \textbf{Certified Professional: Kaspersky Security Center for Managed Services Providers (012.12)}\end{twocolentry}
+
+        \vspace{0.10 cm}
+        \vspace{0.2 cm}
+        
+        \begin{twocolentry}{
+           \href{https://learn.microsoft.com/api/credentials/share/es-mx/WilliamsAlejandroMedinaMrquez-4454/BE7908B9DE57559E?sharingId=1928DA4A1627BB36}{Vínculo a credencial}
+        }
+            \textbf{Microsoft Certified: Azure Fundamentals}\end{twocolentry}
+
+    
+\section{Tecnologías}
+
+\begin{onecolentry}
+    \textbf{Sistemas Operativos:} Windows Client \& Server, Linux (Debian-based)
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{onecolentry}
+    \textbf{Cloud \& Virtualización:} Microsoft Azure, Microsoft 365, VMware ESXi \& vSphere
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{onecolentry}
+    \textbf{Seguridad y Antimalware:} Fortigate, Palo Alto Cortex XDR, Kaspersky Security Center
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{onecolentry}
+    \textbf{Infraestructura y Redes:} Windows Server (AD DS, AD CS, File Server Services, Exchange, IIS), Dell EMC SmartFabric OS
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{onecolentry}
+    \textbf{Automatización y Scripting:} Terraform, JSON, YAML, PowerShell, Bash
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{onecolentry}
+    \textbf{Monitoreo y Herramientas:} PRTG, Jira, ManageEngine: ADManager, ADAudit, Service Desk Plus
+\end{onecolentry}
+ 
+
+\end{document}
