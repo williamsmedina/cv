@@ -5,6 +5,8 @@ Este repositorio contiene el código fuente de mi CV escrito en LaTeX y desplega
 
 main.tex: Documento principal en LaTeX que define el diseño y contenido de mi CV.
 
+***
+
 ### Automatización con GitHub Actions
 
 Cada vez que se hace un commit a la rama main:
@@ -17,6 +19,8 @@ El archivo PDF se commitea de vuelta al repositorio automáticamente
 
 Workflow: .github/workflows/build.yml
 
+***
+
 **Incluye:**
 
 Instalación de paquetes LaTeX necesarios (como fontawesome5, xcolor, etc.)
@@ -26,6 +30,8 @@ Compilación no interactiva con manejo de errores
 Renombrado a CV.pdf
 
 Commit automático usando github-actions[bot]
+
+***
 
 ### Despliegue con Vercel
 
