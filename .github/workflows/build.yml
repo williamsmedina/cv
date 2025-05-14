@@ -1,4 +1,4 @@
-name: Build LaTeX PDF
+name: Build and Commit LaTeX PDF
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: 📥 Clonar repo
         uses: actions/checkout@v3
@@ -15,10 +16,20 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y texlive-latex-extra
 
       - name: 🧱 Compilar CV
-        run: pdflatex -interaction=nonstopmode -output-directory=public cv.tex
+        run: |
+          mkdir -p public
+          pdflatex -interaction=nonstopmode -output-directory=public cv.tex
 
-      - name: 📤 Subir a artefacto
-        uses: actions/upload-artifact@v3
-        with:
-          name: cv-pdf
-          path: public/CV.pdf
+      - name: 🔐 Configurar Git para commitear
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: ✅ Commit del PDF generado
+        run: |
+          git add public/CV.pdf
+          git commit -m "📄 Actualizar CV.pdf compilado automáticamente" || echo "Sin cambios"
+          git push
+        env:
+          # Esto permite que GitHub Actions haga push al repo
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
