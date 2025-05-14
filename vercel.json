@@ -1,0 +1,17 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/CV.pdf" }
+  ],
+  "headers": [
+    {
+      "source": "/CV.pdf",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        }
+      ]
+    }
+  ]
+}
