@@ -1,0 +1,24 @@
+name: Build LaTeX PDF
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Clonar repo
+        uses: actions/checkout@v3
+
+      - name: 🧰 Instalar LaTeX
+        run: sudo apt-get update && sudo apt-get install -y texlive-latex-extra
+
+      - name: 🧱 Compilar CV
+        run: pdflatex -interaction=nonstopmode -output-directory=public cv.tex
+
+      - name: 📤 Subir a artefacto
+        uses: actions/upload-artifact@v3
+        with:
+          name: cv-pdf
+          path: public/CV.pdf
